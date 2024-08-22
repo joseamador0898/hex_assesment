@@ -38,3 +38,40 @@ This project implements a WebSocket client to stream and maintain an order book 
   - **Singapore**: 0.095s
   - **Sydney**: 0.126s
 - **Insight**: The lowest latency can be achieved in Tokyo and New Jersey, making them ideal locations for deploying AWS instances when connecting to Binance servers.
+
+---
+
+# Trading Strategy - Exploiting Inefficiencies between Perpetual and Calendar Futures
+
+## Overview
+
+This part of the project focuses on exploiting the inefficiencies between perpetual futures and calendar (dated) futures on Binance US. The goal is to develop a trading strategy based on the spread between the funding rate of perpetual futures and the implied funding rate of calendar futures.
+
+## Requirements and Calculations
+
+### 1. Funding Rate for Perpetual Future
+The funding rate for a perpetual future is calculated based on the difference between the perpetual future's mark price and the underlying index price, adjusted for interest rates and premium index.
+
+**Formula:**
+- def calculate_funding_rate(mark_price, index_price, interest_rate, premium_index):
+- return (mark_price - index_price) / index_price + interest_rate - premium_index
+
+### 2. Implied Funding Rate for Calendar Future
+- The implied funding rate (or implied interest rate) for a calendar future is calculated by comparing the future's price to the spot price and adjusting for the time to -maturity.
+
+- Formula:
+- def calculate_implied_rate(future_price, spot_price, time_to_maturity):
+    -return (future_price / spot_price - 1) / time_to_maturity
+
+### 3. Trading the Spread between Perpetual and Calendar Futures
+- The trading strategy is based on the spread between the funding rate of the perpetual future and the implied rate of the calendar future. Trades are initiated when the -spread crosses a certain threshold:
+
+- Long Perpetual, Short Calendar: If the funding rate is significantly lower than the implied rate.
+- Short Perpetual, Long Calendar: If the funding rate is significantly higher than the implied rate.
+- Spread Calculation Formula:
+- def calculate_spread(funding_rate, implied_rate):
+- return funding_rate - implied_rate
+- Example Results from Analysis
+- Funding Rate for BTC/USDT Perpetual Future: 0.05% (as an example based on historical data).
+- Implied Funding Rate for BTC/USDT Calendar Future: 0.08% (as an example based on historical data).
+- Trading Signal: A signal to go Long Perpetual and Short Calendar based on the spread of -0.03%.
