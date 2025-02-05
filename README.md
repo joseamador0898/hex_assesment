@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project implements a WebSocket client to stream and maintain an order book from an exchange, specifically designed to meet the following requirements:
+This first part of this project implements a WebSocket client to stream and maintain an order book from an exchange, specifically designed to meet the following requirements:
 
 ## Requirements
 
