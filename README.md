@@ -1,4 +1,4 @@
-# Hex Assessment - Quantitative Development
+# Hex Assessment - Quantitative Trading and Development
 
 ## Overview
 
